@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA NEXUS | Next Era AI Platform</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@300;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            dark: '#05050A',
+                            card: 'rgba(18, 18, 37, 0.65)',
+                            border: 'rgba(0, 243, 255, 0.2)',
+                            cyan: '#00f3ff',
+                            magenta: '#ff007f',
+                            purple: '#8a2be2',
+                            glow: 'rgba(0, 243, 255, 0.4)'
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px #00f3ff, 0 0 10px #00f3ff' },
+                            '100%': { boxShadow: '0 0 20px #00f3ff, 0 0 30px #ff007f' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Custom Styling & Cyber Glassmorphism */
+        body {
+            background-color: #05050A;
+            color: #e2e8f0;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .orbitron { font-family: 'Orbitron', sans-serif; }
+        .font-mono { font-family: 'Fira Code', monospace; }
+
+        /* Grid Background Pattern */
+        .bg-cyber-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 243, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 243, 255, 0.04) 1px, transparent 1px);
+        }
+
+        /* Glassmorphism Effect */
+        .glass-panel {
+            background: rgba(13, 14, 28, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 243, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-panel-magenta {
+            background: rgba(22, 10, 28, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 0, 127, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(255, 0, 127, 0.1);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(0, 243, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        }
+
+        /* Neon Glow Text & Shadows */
+        .neon-text-cyan {
+            text-shadow: 0 0 8px rgba(0, 243, 255, 0.6), 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+
+        .neon-text-magenta {
+            text-shadow: 0 0 8px rgba(255, 0, 127, 0.6), 0 0 20px rgba(255, 0, 127, 0.3);
+        }
+
+        .neon-border {
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.3), inset 0 0 10px rgba(0, 243, 255, 0.2);
+        }
+
+        /* Scanline Effect */
+        .scanlines {
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.25) 50%
+            ), linear-gradient(
+                90deg,
+                rgba(255, 0, 0, 0.03),
+                rgba(0, 255, 0, 0.01),
+                rgba(0, 0, 255, 0.03)
+            );
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #05050A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00f3ff;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff007f;
+        }
+
+        /* Terminal Cursor animation */
+        .cursor-blink::after {
+            content: '█';
+            animation: blink 1s step-end infinite;
+            color: #00f3ff;
+            margin-left: 2px;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Core HUD Rotation */
+        @keyframes reverse-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
+        .animate-reverse-spin {
+            animation: reverse-spin 18s linear infinite;
+        }
+    </style>
+</head>
+<body class="relative bg-cyber-dark text-gray-200 antialiased selection:bg-cyber-cyan selection:text-black">
+
+    <!-- Ambient Grid & Scanlines overlay -->
+    <div class="fixed inset-0 bg-cyber-grid z-0 pointer-events-none"></div>
+    <div class="fixed inset-0 scanlines z-10 opacity-30 pointer-events-none"></div>
+
+    <!-- Background Particle Canvas -->
+    <canvas id="particleCanvas" class="fixed inset-0 z-0 pointer-events-none"></canvas>
+
+    <!-- MAIN WRAPPER -->
+    <div class="relative z-20 flex flex-col min-h-screen">
+
+        <!-- 1. NAVIGATION BAR -->
+        <header class="sticky top-0 z-50 glass-panel border-b border-cyber-border/40 backdrop-blur-md">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    
+                    <!-- Logo -->
+                    <a href="#" class="flex items-center gap-3 group">
+                        <div class="relative w-10 h-10 flex items-center justify-center bg-cyber-cyan/10 border border-cyber-cyan rounded-lg group-hover:shadow-[0_0_15px_#00f3ff] transition-all">
+                            <i class="fa-solid fa-brain text-cyber-cyan text-xl group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <div>
+                            <span class="orbitron font-extrabold text-xl sm:text-2xl tracking-wider text-white">AURA<span class="text-cyber-cyan neon-text-cyan">NEXUS</span></span>
+                            <span class="block text-[10px] tracking-widest text-cyber-cyan/80 font-mono -mt-1">INTELLIGENCE MATRIX</span>
+                        </div>
+                    </a>
+
+                    <!-- Desktop Nav Links -->
+                    <nav class="hidden md:flex items-center space-x-8 font-mono text-sm tracking-wide">
+                        <a href="#home" class="relative text-white hover:text-cyber-cyan transition-colors py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyber-cyan hover:after:w-full after:transition-all">HOME</a>
+                        <a href="#innovations" class="relative text-gray-300 hover:text-cyber-cyan transition-colors py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyber-cyan hover:after:w-full after:transition-all">MODULES</a>
+                        <a href="#terminal" class="relative text-gray-300 hover:text-cyber-cyan transition-colors py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyber-cyan hover:after:w-full after:transition-all">TERMINAL</a>
+                        <a href="#analytics" class="relative text-gray-300 hover:text-cyber-cyan transition-colors py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyber-cyan hover:after:w-full after:transition-all">ANALYTICS</a>
+                        <a href="#contact" class="relative text-gray-300 hover:text-cyber-cyan transition-colors py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-cyber-cyan hover:after:w-full after:transition-all">INQUIRY</a>
+                    </nav>
+
+                    <!-- Status Badge -->
+                    <div class="hidden lg:flex items-center gap-3 px-3 py-1.5 rounded-full bg-emerald-950/40 border border-emerald-500/40 text-emerald-400 font-mono text-xs">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        SYS OPERATIONAL - v4.2
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobileMenuBtn" class="md:hidden text-cyber-cyan p-2 rounded-lg border border-cyber-cyan/30 hover:bg-cyber-cyan/10">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Dropdown -->
+            <div id="mobileMenu" class="hidden md:hidden glass-panel border-b border-cyber-cyan/30 px-6 py-4 space-y-3 font-mono text-sm">
+                <a href="#home" class="block text-cyber-cyan hover:pl-2 transition-all">/01 HOME</a>
+                <a href="#innovations" class="block text-gray-300 hover:text-cyber-cyan hover:pl-2 transition-all">/02 MODULES</a>
+                <a href="#terminal" class="block text-gray-300 hover:text-cyber-cyan hover:pl-2 transition-all">/03 TERMINAL</a>
+                <a href="#analytics" class="block text-gray-300 hover:text-cyber-cyan hover:pl-2 transition-all">/04 ANALYTICS</a>
+                <a href="#contact" class="block text-gray-300 hover:text-cyber-cyan hover:pl-2 transition-all">/05 INQUIRY</a>
+            </div>
+        </header>
+
+        <!-- 2. HERO SECTION -->
+        <section id="home" class="relative min-h-[calc(100vh-80px)] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyber-cyan/10 border border-cyber-cyan/40 text-cyber-cyan font-mono text-xs tracking-wider">
+                        <i class="fa-solid fa-bolt text-cyber-magenta"></i> SCHOOL ASSIGNMENT PROJECT // AI 2026
+                    </div>
+                    
+                    <h1 class="orbitron font-black text-4xl sm:text-6xl lg:text-7xl leading-tight text-white tracking-wide">
+                        STEP INTO THE <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-blue-500 to-cyber-magenta neon-text-cyan">
+                            NEXT ERA OF AI
+                        </span>
+                    </h1>
+
+                    <p class="text-lg sm:text-xl text-gray-300 max-w-2xl font-light leading-relaxed">
+                        Architecture powered by quantum-synthesized neural networks. 
+                        <span id="typedText" class="font-mono text-cyber-cyan cursor-blink"></span>
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start">
+                        <a href="#innovations" class="orbitron px-8 py-4 rounded-lg bg-cyber-cyan text-black font-bold tracking-wider hover:bg-white hover:shadow-[0_0_25px_#00f3ff] transition-all flex items-center justify-center gap-3 group">
+                            EXPLORE MODULES
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="#terminal" class="orbitron px-8 py-4 rounded-lg glass-panel text-cyber-cyan border border-cyber-cyan/50 font-semibold tracking-wider hover:bg-cyber-cyan/10 hover:border-cyber-cyan transition-all flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-terminal"></i>
+                            LAUNCH TERMINAL
+                        </a>
+                    </div>
+
+                    <!-- Quick Metrics Strip -->
+                    <div class="pt-8 grid grid-cols-3 gap-4 border-t border-gray-800 font-mono text-xs sm:text-sm">
+                        <div>
+                            <span class="block text-gray-400">LATENCY</span>
+                            <span class="text-cyber-cyan font-bold text-lg sm:text-xl">0.02ms</span>
+                        </div>
+                        <div>
+                            <span class="block text-gray-400">NEURAL SYNC</span>
+                            <span class="text-cyber-magenta font-bold text-lg sm:text-xl">99.98%</span>
+                        </div>
+                        <div>
+                            <span class="block text-gray-400">SECURITY</span>
+                            <span class="text-purple-400 font-bold text-lg sm:text-xl">QUANTUM-256</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Interactive HUD Widget -->
+                <div class="lg:col-span-5 flex justify-center items-center">
+                    <div class="relative w-72 h-72 sm:w-96 sm:h-96 flex items-center justify-center">
+                        
+                        <!-- Outer Rotating Cyber Ring -->
+                        <div class="absolute inset-0 rounded-full border-2 border-dashed border-cyber-cyan/40 animate-spin-slow"></div>
+                        <div class="absolute inset-4 rounded-full border border-cyber-magenta/30 animate-reverse-spin"></div>
+                        <div class="absolute inset-12 rounded-full border-4 border-t-cyber-cyan border-r-transparent border-b-cyber-magenta border-l-transparent animate-spin-slow"></div>
+
+                        <!-- Core Sphere / HUD center -->
+                        <div class="relative w-40 h-40 rounded-full glass-panel flex flex-col items-center justify-center shadow-[0_0_50px_rgba(0,243,255,0.3)] group cursor-pointer hover:scale-105 transition-transform" id="hudCore">
+                            <i class="fa-solid fa-atom text-5xl text-cyber-cyan animate-pulse"></i>
+                            <span class="orbitron text-xs text-cyber-cyan mt-2 tracking-widest font-bold">AURA CORE</span>
+                            <span class="font-mono text-[10px] text-gray-400">ONLINE</span>
+                        </div>
+
+                        <!-- Floating HUD badges -->
+                        <div class="absolute top-2 left-0 glass-panel px-3 py-1.5 rounded-lg border-cyber-cyan/40 font-mono text-xs text-cyber-cyan animate-bounce">
+                            <i class="fa-solid fa-microchip mr-1"></i> Q-BITS: ACTIVE
+                        </div>
+                        <div class="absolute bottom-4 right-0 glass-panel px-3 py-1.5 rounded-lg border-cyber-magenta/40 font-mono text-xs text-cyber-magenta">
+                            <i class="fa-solid fa-shield-halved mr-1"></i> FIREWALL: MAX
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 3. FEATURES / MODULES SHOWCASE -->
+        <section id="innovations" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="font-mono text-cyber-cyan text-sm tracking-widest">/// CORE ARCHITECTURE</span>
+                <h2 class="orbitron text-3xl sm:text-5xl font-extrabold text-white">NEXT-GEN AI MODULES</h2>
+                <p class="text-gray-400 font-light text-base sm:text-lg">
+                    Discover the primary neural systems powering AURA NEXUS quantum computing framework.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Card 1 -->
+                <div class="glass-panel rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 group cursor-pointer flex flex-col justify-between" onclick="openModal('Quantum Neural Processing', 'Utilizes sub-atomic quantum spin states to perform over 100 Trillion matrix calculations per millisecond. Designed for real-time planet-scale predictive modeling.', 'QUANTUM-ENGINE')">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/40 flex items-center justify-center text-cyber-cyan text-2xl mb-6 group-hover:shadow-[0_0_20px_#00f3ff] transition-all">
+                            <i class="fa-solid fa-network-wired"></i>
+                        </div>
+                        <h3 class="orbitron font-bold text-xl text-white mb-2 group-hover:text-cyber-cyan transition-colors">Quantum Neural Engine</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Sub-atomic parallel computation offering unprecedented intelligence scaling.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-mono text-cyber-cyan border-t border-gray-800 pt-4">
+                        <span>STATUS: ACTIVE</span>
+                        <span class="group-hover:translate-x-1 transition-transform">DETAILS &rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-panel rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 group cursor-pointer flex flex-col justify-between" onclick="openModal('Cybernetic Security Shield', 'Autonomous cyber defense matrix deploying instant self-healing encryption layers against zero-day quantum threats.', 'CYBER-SHIELD')">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-cyber-magenta/10 border border-cyber-magenta/40 flex items-center justify-center text-cyber-magenta text-2xl mb-6 group-hover:shadow-[0_0_20px_#ff007f] transition-all">
+                            <i class="fa-solid fa-shield-virus"></i>
+                        </div>
+                        <h3 class="orbitron font-bold text-xl text-white mb-2 group-hover:text-cyber-magenta transition-colors">Cybernetic Shield</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Autonomous threat prevention system with adaptive dynamic cryptographic defense.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-mono text-cyber-magenta border-t border-gray-800 pt-4">
+                        <span>STATUS: ARMED</span>
+                        <span class="group-hover:translate-x-1 transition-transform">DETAILS &rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-panel rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 group cursor-pointer flex flex-col justify-between" onclick="openModal('Autonomous Machine Learning', 'Continuous self-improving algorithms capable of re-writing core code dynamically based on operational parameters.', 'AUTO-ML')">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-purple-500/10 border border-purple-500/40 flex items-center justify-center text-purple-400 text-2xl mb-6 group-hover:shadow-[0_0_20px_#8a2be2] transition-all">
+                            <i class="fa-solid fa-dna"></i>
+                        </div>
+                        <h3 class="orbitron font-bold text-xl text-white mb-2 group-hover:text-purple-400 transition-colors">Autonomous ML</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Self-evolving code base capable of real-time architectural adaptation.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-mono text-purple-400 border-t border-gray-800 pt-4">
+                        <span>STATUS: EVOLVING</span>
+                        <span class="group-hover:translate-x-1 transition-transform">DETAILS &rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-panel rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 group cursor-pointer flex flex-col justify-between" onclick="openModal('Holographic Data Analytics', 'Transform massive multi-dimensional datasets into interactive spatial holographic visual environments.', 'HOLO-DATA')">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-blue-500/10 border border-blue-500/40 flex items-center justify-center text-blue-400 text-2xl mb-6 group-hover:shadow-[0_0_20px_#3b82f6] transition-all">
+                            <i class="fa-solid fa-vr-cardboard"></i>
+                        </div>
+                        <h3 class="orbitron font-bold text-xl text-white mb-2 group-hover:text-blue-400 transition-colors">Holo Analytics</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            3D Holographic data rendering allowing natural intuitive spatial manipulation.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-mono text-blue-400 border-t border-gray-800 pt-4">
+                        <span>STATUS: READY</span>
+                        <span class="group-hover:translate-x-1 transition-transform">DETAILS &rarr;</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. INTERACTIVE TERMINAL / COMMAND CONSOLE -->
+        <section id="terminal" class="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full">
+            <div class="glass-panel rounded-2xl border border-cyber-cyan/30 overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.8)]">
+                
+                <!-- Terminal Header Bar -->
+                <div class="bg-black/80 px-4 py-3 border-b border-gray-800 flex items-center justify-between font-mono text-xs">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
+                        <span class="ml-2 text-gray-400">aura-nexus-v4.2://terminal</span>
+                    </div>
+                    <span class="text-cyber-cyan">USER: GUEST_STUDENT</span>
+                </div>
+
+                <!-- Terminal Output Window -->
+                <div id="terminalOutput" class="p-6 font-mono text-xs sm:text-sm h-80 overflow-y-auto space-y-3 bg-black/60 text-green-400 selection:bg-green-800 selection:text-white">
+                    <div>
+                        <span class="text-cyber-cyan">AURA NEXUS [Version 4.2.0-STABLE]</span><br>
+                        <span class="text-gray-500">(c) 2026 Aura Cybernetics. All rights reserved for School Project.</span><br>
+                        <span class="text-yellow-400">Type <span class="underline">help</span> to view available system commands.</span>
+                    </div>
+                </div>
+
+                <!-- Quick Action Buttons for Terminal -->
+                <div class="px-4 py-2 bg-gray-950 border-t border-gray-800 flex flex-wrap gap-2 text-xs font-mono">
+                    <span class="text-gray-500 flex items-center mr-2">PRESETS:</span>
+                    <button onclick="runCommand('help')" class="px-2.5 py-1 rounded bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 hover:bg-cyber-cyan hover:text-black transition-all">help</button>
+                    <button onclick="runCommand('status')" class="px-2.5 py-1 rounded bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 hover:bg-cyber-cyan hover:text-black transition-all">status</button>
+                    <button onclick="runCommand('scan')" class="px-2.5 py-1 rounded bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 hover:bg-cyber-cyan hover:text-black transition-all">scan</button>
+                    <button onclick="runCommand('ai-demo')" class="px-2.5 py-1 rounded bg-cyber-magenta/10 text-cyber-magenta border border-cyber-magenta/30 hover:bg-cyber-magenta hover:text-white transition-all">ai-demo</button>
+                    <button onclick="runCommand('clear')" class="px-2.5 py-1 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 transition-all">clear</button>
+                </div>
+
+                <!-- Terminal Command Input Bar -->
+                <form id="terminalForm" class="bg-black border-t border-gray-800 p-3 flex items-center gap-2">
+                    <span class="text-cyber-cyan font-mono pl-2">&gt;</span>
+                    <input type="text" id="terminalInput" autocomplete="off" placeholder="Enter command here..." class="w-full bg-transparent border-none text-cyber-cyan font-mono text-sm focus:outline-none focus:ring-0 placeholder:text-gray-600">
+                    <button type="submit" class="px-4 py-1.5 bg-cyber-cyan text-black font-mono font-bold text-xs rounded hover:bg-white transition-all">EXECUTE</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 5. LIVE STATS & DASHBOARD -->
+        <section id="analytics" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                <div>
+                    <span class="font-mono text-cyber-magenta text-sm tracking-widest">/// TELEMETRY DASHBOARD</span>
+                    <h2 class="orbitron text-3xl sm:text-5xl font-extrabold text-white">SYSTEM DIAGNOSTICS</h2>
+                </div>
+                <button id="refreshStatsBtn" class="self-start md:self-auto px-4 py-2 rounded-lg glass-panel text-cyber-cyan border border-cyber-cyan/40 hover:bg-cyber-cyan/10 text-xs font-mono flex items-center gap-2">
+                    <i class="fa-solid fa-rotate"></i> RE-SYNC METRICS
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Meter 1 -->
+                <div class="glass-panel p-6 rounded-2xl border-l-4 border-l-cyber-cyan space-y-4">
+                    <div class="flex justify-between items-center font-mono text-xs text-gray-400">
+                        <span>QUANTUM LOAD</span>
+                        <i class="fa-solid fa-microchip text-cyber-cyan"></i>
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                        <span id="statCpu" class="orbitron text-4xl font-black text-white">42</span>
+                        <span class="text-cyber-cyan font-mono text-lg">%</span>
+                    </div>
+                    <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                        <div id="barCpu" class="bg-cyber-cyan h-full transition-all duration-500" style="width: 42%;"></div>
+                    </div>
+                    <span class="block text-[11px] font-mono text-gray-500">128 Cores Active</span>
+                </div>
+
+                <!-- Meter 2 -->
+                <div class="glass-panel p-6 rounded-2xl border-l-4 border-l-cyber-magenta space-y-4">
+                    <div class="flex justify-between items-center font-mono text-xs text-gray-400">
+                        <span>THREAT LEVEL</span>
+                        <i class="fa-solid fa-triangle-exclamation text-cyber-magenta"></i>
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                        <span id="statThreat" class="orbitron text-4xl font-black text-white">0.01</span>
+                        <span class="text-cyber-magenta font-mono text-lg">%</span>
+                    </div>
+                    <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                        <div id="barThreat" class="bg-cyber-magenta h-full transition-all duration-500" style="width: 2%;"></div>
+                    </div>
+                    <span class="block text-[11px] font-mono text-emerald-400">DEFENSES OPTIMAL</span>
+                </div>
+
+                <!-- Meter 3 -->
+                <div class="glass-panel p-6 rounded-2xl border-l-4 border-l-purple-500 space-y-4">
+                    <div class="flex justify-between items-center font-mono text-xs text-gray-400">
+                        <span>NEURAL SYNC RATE</span>
+                        <i class="fa-solid fa-arrows-rotate text-purple-400"></i>
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                        <span id="statSync" class="orbitron text-4xl font-black text-white">99.8</span>
+                        <span class="text-purple-400 font-mono text-lg">%</span>
+                    </div>
+                    <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                        <div id="barSync" class="bg-purple-500 h-full transition-all duration-500" style="width: 99.8%;"></div>
+                    </div>
+                    <span class="block text-[11px] font-mono text-gray-500">Node Grid Stable</span>
+                </div>
+
+                <!-- Meter 4 -->
+                <div class="glass-panel p-6 rounded-2xl border-l-4 border-l-emerald-400 space-y-4">
+                    <div class="flex justify-between items-center font-mono text-xs text-gray-400">
+                        <span>DATA THROUGHPUT</span>
+                        <i class="fa-solid fa-wifi text-emerald-400"></i>
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                        <span id="statFlow" class="orbitron text-4xl font-black text-white">8.4</span>
+                        <span class="text-emerald-400 font-mono text-lg">TB/s</span>
+                    </div>
+                    <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                        <div id="barFlow" class="bg-emerald-400 h-full transition-all duration-500" style="width: 78%;"></div>
+                    </div>
+                    <span class="block text-[11px] font-mono text-gray-500">Fiber Fiber Link</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 6. CONTACT / AI INQUIRY SECTION -->
+        <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full">
+            <div class="glass-panel-magenta rounded-3xl p-8 sm:p-12 relative overflow-hidden">
+                <div class="absolute -top-12 -right-12 w-48 h-48 bg-cyber-magenta/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="text-center max-w-xl mx-auto mb-10 space-y-2">
+                    <span class="font-mono text-cyber-magenta text-xs tracking-widest">/// TRANSMIT PACKET</span>
+                    <h2 class="orbitron text-3xl font-bold text-white">INITIATE DIRECT INQUIRY</h2>
+                    <p class="text-gray-400 text-sm">Send an encrypted query packet directly to our project core system.</p>
+                </div>
+
+                <form id="contactForm" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block font-mono text-xs text-gray-300 mb-2">OPERATOR NAME</label>
+                            <input type="text" required placeholder="e.g., Alex Mercer" class="w-full bg-black/50 border border-cyber-magenta/40 rounded-xl px-4 py-3 text-white font-mono text-sm focus:outline-none focus:border-cyber-magenta focus:ring-1 focus:ring-cyber-magenta transition-all">
+                        </div>
+                        <div>
+                            <label class="block font-mono text-xs text-gray-300 mb-2">COMM FREQUENCY (EMAIL)</label>
+                            <input type="email" required placeholder="user@quantum.net" class="w-full bg-black/50 border border-cyber-magenta/40 rounded-xl px-4 py-3 text-white font-mono text-sm focus:outline-none focus:border-cyber-magenta focus:ring-1 focus:ring-cyber-magenta transition-all">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-mono text-xs text-gray-300 mb-2">ENCRYPTED MESSAGE</label>
+                        <textarea rows="4" required placeholder="Enter query transmission..." class="w-full bg-black/50 border border-cyber-magenta/40 rounded-xl px-4 py-3 text-white font-mono text-sm focus:outline-none focus:border-cyber-magenta focus:ring-1 focus:ring-cyber-magenta transition-all"></textarea>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="w-full orbitron py-4 bg-cyber-magenta text-white font-bold rounded-xl tracking-wider hover:bg-opacity-90 hover:shadow-[0_0_25px_#ff007f] transition-all flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        TRANSMIT ENCRYPTED PACKET
+                    </button>
+                </form>
+
+                <!-- Feedback Toast -->
+                <div id="formFeedback" class="hidden mt-6 p-4 rounded-xl bg-emerald-950/80 border border-emerald-500 text-emerald-300 font-mono text-xs text-center animate-fade-in">
+                    <i class="fa-solid fa-circle-check text-base mr-2"></i> PACKET TRANSMITTED SUCCESSFULLY! RESPONSE EN ROUTE.
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. FOOTER -->
+        <footer class="mt-auto border-t border-gray-800 bg-black/80 py-10 px-4 sm:px-6 lg:px-8 font-mono text-xs text-gray-400">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+                <div>
+                    <span class="orbitron font-bold text-white text-base">AURA<span class="text-cyber-cyan">NEXUS</span></span>
+                    <p class="text-gray-500 text-[11px] mt-1">School Computer Science Assignment Project &copy; 2026</p>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-6 text-gray-400">
+                    <span>SYS TIMESTAMP: <span id="sysTime" class="text-cyber-cyan">00:00:00 UTC</span></span>
+                    <span class="hidden sm:inline">|</span>
+                    <span>FRAMEWORK: <span class="text-cyber-magenta">TAILWIND + JS</span></span>
+                </div>
+
+                <div class="flex space-x-4 text-base">
+                    <a href="#" class="hover:text-cyber-cyan transition-colors"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="hover:text-cyber-cyan transition-colors"><i class="fa-brands fa-discord"></i></a>
+                    <a href="#" class="hover:text-cyber-cyan transition-colors"><i class="fa-solid fa-terminal"></i></a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- MODAL POPUP FOR MODULE DETAILS -->
+    <div id="detailModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden">
+        <div class="glass-panel max-w-lg w-full rounded-2xl p-6 sm:p-8 border border-cyber-cyan shadow-[0_0_50px_rgba(0,243,255,0.3)] relative animate-fade-in">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="font-mono text-xs text-cyber-cyan mb-2" id="modalTag">MODULE SPECIFICATION</div>
+            <h3 class="orbitron font-bold text-2xl text-white mb-4" id="modalTitle">Module Title</h3>
+            <p class="text-gray-300 text-sm leading-relaxed mb-6" id="modalBody">Description content goes here...</p>
+            <div class="flex justify-end">
+                <button onclick="closeModal()" class="orbitron px-6 py-2 rounded bg-cyber-cyan text-black font-bold text-xs hover:bg-white transition-all">CLOSE SPEC</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT INTERACTIVE LOGIC -->
+    <script>
+        // --- 1. PARTICLE CANVAS BACKGROUND ---
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 120 };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.8;
+                this.speedY = (Math.random() - 0.5) * 0.8;
+                this.color = Math.random() > 0.5 ? '#00f3ff' : '#ff007f';
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+
+                // Mouse interaction
+                if (mouse.x && mouse.y) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouse.radius) {
+                        this.x -= dx * 0.02;
+                        this.y -= dy * 0.02;
+                    }
+                }
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.floor((canvas.width * canvas.height) / 12000);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw particles and faint connecting lines
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 90) {
+                        ctx.strokeStyle = `rgba(0, 243, 255, ${1 - dist / 90 * 0.8})`;
+                        ctx.lineWidth = 0.4;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        resizeCanvas();
+        animateParticles();
+
+
+        // --- 2. DYNAMIC TYPING EFFECT ---
+        const phrases = [
+            "Initializing Quantum Core Matrix...",
+            "Decrypting Autonomous Intelligence Protocols...",
+            "Synchronizing Global Neural Grid Node 01..."
+        ];
+        let pIndex = 0;
+        let cIndex = 0;
+        let isDeleting = false;
+        const typedEl = document.getElementById('typedText');
+
+        function typeLoop() {
+            const current = phrases[pIndex];
+            if (isDeleting) {
+                typedEl.textContent = current.substring(0, cIndex--);
+            } else {
+                typedEl.textContent = current.substring(0, cIndex++);
+            }
+
+            let speed = isDeleting ? 30 : 60;
+
+            if (!isDeleting && cIndex === current.length + 1) {
+                speed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && cIndex === 0) {
+                isDeleting = false;
+                pIndex = (pIndex + 1) % phrases.length;
+                speed = 500;
+            }
+
+            setTimeout(typeLoop, speed);
+        }
+        typeLoop();
+
+
+        // --- 3. INTERACTIVE TERMINAL ENGINE ---
+        const terminalOutput = document.getElementById('terminalOutput');
+        const terminalForm = document.getElementById('terminalForm');
+        const terminalInput = document.getElementById('terminalInput');
+
+        const commandResponses = {
+            'help': 'AVAILABLE COMMANDS:<br>- <span class="text-cyber-cyan">status</span>: View core system state<br>- <span class="text-cyber-cyan">scan</span>: Run diagnostic security sweep<br>- <span class="text-cyber-cyan">ai-demo</span>: Trigger dynamic neural synthesis demo<br>- <span class="text-cyber-cyan">clear</span>: Flush console log output',
+            'status': 'SYSTEM STATUS: <span class="text-emerald-400">ONLINE</span><br>QUANTUM CORES: 128/128 Active<br>UPTIME: 99.998%<br>FIREWALL: Quantum RSA-8192 Active',
+            'scan': 'INITIATING SCAN...<br>[||||||||||||||||||||] 100%<br><span class="text-emerald-400">ZERO THREATS DETECTED. SYSTEM SECURE.</span>',
+            'ai-demo': 'RUNNING NEURAL MODEL SIMULATION...<br>&gt; Input Matrix: [0.84, 0.12, 0.99]<br>&gt; Quantum Weight Matrix adjusted.<br><span class="text-cyber-magenta">&gt; Result: High confidence predictive model generated (99.8% match).</span>'
+        };
+
+        function printToTerminal(userCmd, responseText) {
+            const line = document.createElement('div');
+            line.innerHTML = `<span class="text-cyber-cyan">&gt; ${userCmd}</span><br>${responseText}`;
+            terminalOutput.appendChild(line);
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+
+        function runCommand(cmd) {
+            const cleanCmd = cmd.trim().toLowerCase();
+            if (cleanCmd === 'clear') {
+                terminalOutput.innerHTML = '';
+                return;
+            }
+
+            if (commandResponses[cleanCmd]) {
+                printToTerminal(cmd, commandResponses[cleanCmd]);
+            } else {
+                printToTerminal(cmd, `<span class="text-red-400">Command not recognized '${cmd}'. Type 'help' for options.</span>`);
+            }
+        }
+
+        terminalForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const val = terminalInput.value;
+            if (val.trim()) {
+                runCommand(val);
+                terminalInput.value = '';
+            }
+        });
+
+
+        // --- 4. LIVE DASHBOARD METRICS SIMULATOR ---
+        function updateMetrics() {
+            const cpu = Math.floor(35 + Math.random() * 25);
+            const threat = (Math.random() * 0.05).toFixed(2);
+            const sync = (99.5 + Math.random() * 0.4).toFixed(1);
+            const flow = (7.8 + Math.random() * 1.5).toFixed(1);
+
+            document.getElementById('statCpu').innerText = cpu;
+            document.getElementById('barCpu').style.width = cpu + '%';
+
+            document.getElementById('statThreat').innerText = threat;
+            document.getElementById('barThreat').style.width = (threat * 200) + '%';
+
+            document.getElementById('statSync').innerText = sync;
+            document.getElementById('barSync').style.width = sync + '%';
+
+            document.getElementById('statFlow').innerText = flow;
+            document.getElementById('barFlow').style.width = (flow * 10) + '%';
+        }
+
+        setInterval(updateMetrics, 3000);
+        document.getElementById('refreshStatsBtn').addEventListener('click', updateMetrics);
+
+
+        // --- 5. MODAL POPUP CONTROL ---
+        function openModal(title, body, tag) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerText = body;
+            document.getElementById('modalTag').innerText = 'MODULE SPECIFICATION // ' + tag;
+            document.getElementById('detailModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+        }
+
+
+        // --- 6. FORM SUBMISSION FEEDBACK ---
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            const feedback = document.getElementById('formFeedback');
+
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> TRANSMITTING...';
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> TRANSMIT ENCRYPTED PACKET';
+                feedback.classList.remove('hidden');
+                e.target.reset();
+                setTimeout(() => {
+                    feedback.classList.add('hidden');
+                }, 5000);
+            }, 1200);
+        });
+
+
+        // --- 7. REALTIME SYSTEM TIMESTAMP & MOBILE MENU ---
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('sysTime').innerText = now.toUTCString().split(' ')[4] + ' UTC';
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Mobile nav toggle
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // HUD Core Click Interaction
+        document.getElementById('hudCore').addEventListener('click', () => {
+            runCommand('status');
+            document.getElementById('terminal').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
